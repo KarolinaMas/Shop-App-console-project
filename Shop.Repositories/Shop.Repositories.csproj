@@ -4,7 +4,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
   <ItemGroup>
-    <ProjectReference Include="..\Shop.Repositories\Shop.Repositories.csproj" />
+    <ProjectReference Include="..\Shop.Entities\Shop.Entities.csproj" />
   </ItemGroup>
 </Project>

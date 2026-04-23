@@ -1,4 +1,5 @@
 ﻿using Shop.Entities;
+using Shop.Repositories;
 using Shop.Services;
 
 namespace Shop.ConsoleApp
@@ -7,7 +8,9 @@ namespace Shop.ConsoleApp
     {
         static void Main(string[] args)
         {
-            IProductService productService = new ProductService();
+            IProductRepository productRepository = new ProductRepository();
+
+            IProductService productService = new ProductService(productRepository);
 
             productService.Add(new Product() { Name = "Book", Price = 12.99M });
 

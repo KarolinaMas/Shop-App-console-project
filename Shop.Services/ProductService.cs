@@ -1,27 +1,25 @@
 using Shop.Entities;
+using Shop.Repositories;
 
 namespace Shop.Services
 {
     public class ProductService : IProductService
     {
-        private Dictionary<int, Product> Products { get; set; } = [];
+        public IProductRepository projectRepository;
+
+        public ProductService(IProductRepository productRepository)
+        {
+            projectRepository = productRepository;
+        }
 
         public int Add(Product product)
         {
-            var maxId = Products.Keys.Any() ? Products.Keys.Max() : 0;
-            product.Id = maxId + 1;
-
-            Products.Add(product.Id, product);
-
-            return product.Id;
+            return projectRepository.Add(product);
         }
 
         public Product Get(int id)
         {
-            if (Products.TryGetValue(id, out var product))
-                return product;
-
-            return null;
+            return projectRepository.Get(id);
         }
     }
 }
