@@ -100,5 +100,15 @@ namespace Shop.Repositories
 
             return basket.Id;
         }
+
+        public Basket Get(int userId)
+        {
+            if (Baskets.TryGetValue(userId, out var basket))
+            {
+                return basket;
+            }
+
+            return null;
+        }
     }
 }
