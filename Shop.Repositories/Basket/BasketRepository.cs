@@ -56,5 +56,30 @@ namespace Shop.Repositories
                 return newBasket.Id;
             }
         }
+
+        public int? Remove(int userId, int productId, int count)
+        {
+            if (!Baskets.TryGetValue(userId, out var basket))
+            {
+                return null;
+            }
+
+            var product = basket.Products.FirstOrDefault(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            if (count >= product.Count)
+            {
+                basket.Products.Remove(product);
+                return basket.Id;
+            }
+
+            product.Count -= count;
+
+            return basket.Id;
+        }
     }
 }
