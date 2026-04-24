@@ -81,5 +81,24 @@ namespace Shop.Repositories
 
             return basket.Id;
         }
+
+        public int? RemoveAll(int userId, int productId)
+        {
+            if (!Baskets.TryGetValue(userId, out var basket))
+            {
+                return null;
+            }
+
+            var product = basket.Products.FirstOrDefault(p => p.ProductId == productId);
+
+            if (product == null)
+            {
+                return null;
+            }
+
+            basket.Products.Remove(product);
+
+            return basket.Id;
+        }
     }
 }
