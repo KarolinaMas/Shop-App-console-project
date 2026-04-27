@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="Shop.ConsoleApp/Shop.ConsoleApp.csproj" />
+  <Project Path="Shop.Data/Shop.Data.csproj" />
   <Project Path="Shop.Entities/Shop.Entities.csproj" />
   <Project Path="Shop.Repositories/Shop.Repositories.csproj" />
   <Project Path="Shop.Services/Shop.Services.csproj" />
