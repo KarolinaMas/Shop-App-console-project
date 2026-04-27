@@ -9,21 +9,17 @@ namespace Shop.ConsoleApp
     {
         static void Main(string[] args)
         {
-            // var collection = new ServiceCollection();
+            var collection = new ServiceCollection();
 
-            // collection.AddScoped<IProductRepository, ProductRepository>();
-            // collection.AddScoped<IBasketRepository, BasketRepository>();
-            // collection.AddScoped<IProductService, ProductService>();
+            collection.AddScoped<IProductRepository, ProductRepository>();
+            collection.AddScoped<IBasketRepository, BasketRepository>();
+            collection.AddScoped<IProductService, ProductService>();
+            collection.AddScoped<IBasketService, BasketService>();
 
-            // var serviceProvider = collection.BuildServiceProvider();
+            var serviceProvider = collection.BuildServiceProvider();
 
-            // var productService = serviceProvider.GetRequiredService<IProductService>();
-
-            IProductRepository productRepository = new ProductRepository();
-            IProductService productService = new ProductService(productRepository);
-
-            IBasketRepository basketRepository = new BasketRepository();
-            IBasketService basketService = new BasketService(basketRepository, productRepository);
+            var productService = serviceProvider.GetRequiredService<IProductService>();
+            var basketService = serviceProvider.GetRequiredService<IBasketService>();
 
             productService.Add(new Product() { Name = "Book", Price = 12.99M });
             productService.Add(new Product() { Name = "Lamp", Price = 37.99M });
