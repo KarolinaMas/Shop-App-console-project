@@ -20,6 +20,8 @@ namespace Shop.ConsoleApp
                 var serviceProvider = scope.ServiceProvider;
 
                 var dbContext = serviceProvider.GetRequiredService<ShopDbContext>();
+
+                dbContext.Database.EnsureDeleted(); // visada istrina db, nesikaupia nereikalingi duomenys testavimo metu
                 dbContext.Database.Migrate();
 
                 var productService = serviceProvider.GetRequiredService<IProductService>();
@@ -46,6 +48,7 @@ namespace Shop.ConsoleApp
         public static IHost BuildHost()
         {
             var host = Host.CreateDefaultBuilder()
+                .UseEnvironment("Development")
                 .ConfigureServices(
                     (context, services) =>
                     {
