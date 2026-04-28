@@ -7,7 +7,7 @@ namespace Shop.Data
     {
         public DbSet<Product> Products { get; set; }
 
-        // public DbSet<Basket> Baskets { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
         public DbSet<ProductInBasket> ProductInBaskets { get; set; }
 
         public ShopDbContext(DbContextOptions<ShopDbContext> options)
@@ -19,17 +19,19 @@ namespace Shop.Data
 
             modelBuilder.Entity<Product>(o =>
             {
-                o.HasKey(o => o.Id);
-                o.Property(o => o.Name).IsRequired();
-                o.Property(o => o.Price).IsRequired();
+                o.HasKey(e => e.Id);
+                o.Property(e => e.Name).IsRequired();
+                o.Property(e => e.Price).IsRequired();
             });
 
-            // modelBuilder.Entity<Basket>(o =>
-            // {
-            //     o.HasKey(o => o.Id);
-            //     o.Property(o => o.UserId).IsRequired();
-            //     o.HasMany(o => o.Products).WithOne().HasForeignKey(p => p.BasketId);
-            // });
+            modelBuilder.Entity<Basket>(o =>
+            {
+                o.HasKey(e => e.Id);
+                o.Property(e => e.UserId).IsRequired();
+                o.HasMany(e => e.ProductInBaskets)
+                    .WithOne(e => e.Basket)
+                    .HasForeignKey(p => p.BasketId);
+            });
 
             modelBuilder.Entity<ProductInBasket>(o =>
             {
