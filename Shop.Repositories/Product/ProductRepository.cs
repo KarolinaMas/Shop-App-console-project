@@ -1,27 +1,29 @@
+using Shop.Data;
 using Shop.Entities;
 
 namespace Shop.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private Dictionary<int, Product> Products { get; set; } = [];
+        private readonly ShopDbContext dbContext;
+
+        public ProductRepository(ShopDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public int Add(Product product)
         {
-            var maxId = Products.Keys.Any() ? Products.Keys.Max() : 0;
-            product.Id = maxId + 1;
+            var entityEntry = dbContext.Products.Add(product); // pridedam produkta i db ir isaugom i kintamaji entity entry
 
-            Products.Add(product.Id, product);
+            dbContext.SaveChanges(); // tik iskvietus sita metoda informacija nueina i db
 
-            return product.Id;
+            return entityEntry.Entity.Id;
         }
 
         public Product Get(int id)
         {
-            if (Products.TryGetValue(id, out var product))
-                return product;
-
-            return null;
+            return dbContext.Products.SingleOrDefault(o => o.Id == id);
         }
     }
 }
