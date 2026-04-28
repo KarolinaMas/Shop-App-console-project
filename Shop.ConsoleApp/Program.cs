@@ -13,7 +13,7 @@ namespace Shop.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var host = BuildHost();
+            var host = BuildHost(args);
 
             using (var scope = host.Services.CreateScope())
             {
@@ -45,9 +45,9 @@ namespace Shop.ConsoleApp
             }
         }
 
-        public static IHost BuildHost()
+        public static IHost BuildHost(string[] args)
         {
-            var host = Host.CreateDefaultBuilder()
+            var host = Host.CreateDefaultBuilder(args)
                 .UseEnvironment("Development")
                 .ConfigureServices(
                     (context, services) =>
