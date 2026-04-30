@@ -16,7 +16,7 @@ namespace Shop.Repositories
         public int Add(int userId, int productId, int count)
         {
             var basket = dbContext
-                .Baskets.Include(b => b.ProductInBaskets)
+                .Baskets.Include(b => b.ProductInBaskets) // Include + FirstOrDefault patikrina ar yra toks userio basket.
                 .FirstOrDefault(b => b.UserId == userId);
 
             if (basket == null)

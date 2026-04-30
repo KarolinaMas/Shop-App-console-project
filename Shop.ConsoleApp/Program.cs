@@ -45,7 +45,7 @@ namespace Shop.ConsoleApp
             }
         }
 
-        public static IHost BuildHost(string[] args)
+        public static IHost BuildHost(string[] args) // args naudojant pavyksta pasiekti appsettings.json
         {
             var host = Host.CreateDefaultBuilder(args)
                 .UseEnvironment("Development")
