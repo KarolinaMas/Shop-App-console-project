@@ -47,6 +47,7 @@ namespace Shop.Data
                 o.HasKey(e => e.Id);
                 o.Property(e => e.Username).IsRequired().HasMaxLength(100);
                 o.Property(e => e.PasswordHash).IsRequired();
+                o.HasIndex(e => e.Username).IsUnique();
             });
         }
     }
