@@ -39,5 +39,21 @@ namespace Shop.Repositories
 
             return true;
         }
+
+        public bool ChangePassword(string username, string passwordHash)
+        {
+            var user = dbContext.Users.SingleOrDefault(u => u.Username == username);
+
+            if (user == null)
+            {
+                return false;
+            }
+
+            user.PasswordHash = passwordHash;
+
+            dbContext.SaveChanges();
+
+            return true;
+        }
     }
 }
