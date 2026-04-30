@@ -26,6 +26,7 @@ namespace Shop.ConsoleApp
 
                 var productService = serviceProvider.GetRequiredService<IProductService>();
                 var basketService = serviceProvider.GetRequiredService<IBasketService>();
+                var userService = serviceProvider.GetRequiredService<IUserService>();
 
                 productService.Add(new Product() { Name = "Book", Price = 12.99M });
                 productService.Add(new Product() { Name = "Lamp", Price = 37.99M });
@@ -42,6 +43,9 @@ namespace Shop.ConsoleApp
 
                 Console.WriteLine($"user id: {basket1.UserId}; basket id: {basket1.Id};");
                 Console.WriteLine($"user id: {basket2.UserId}; basket id: {basket2.Id};");
+
+                var user1 = userService.Register("karole", "karole123", "karole123");
+                var user2 = userService.Register("john", "john123", "john123");
             }
         }
 
@@ -68,6 +72,8 @@ namespace Shop.ConsoleApp
                         services.AddScoped<IBasketRepository, BasketRepository>();
                         services.AddScoped<IProductService, ProductService>();
                         services.AddScoped<IBasketService, BasketService>();
+                        services.AddScoped<IUserRepository, UserRepository>();
+                        services.AddScoped<IUserService, UserService>();
                     }
                 );
 
