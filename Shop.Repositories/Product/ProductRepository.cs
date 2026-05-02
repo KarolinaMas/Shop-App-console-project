@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Entities;
 
@@ -24,6 +25,20 @@ namespace Shop.Repositories
         public Product Get(int id)
         {
             return dbContext.Products.SingleOrDefault(o => o.Id == id);
+        }
+
+        public void Update(Product product)
+        {
+            dbContext.Products.Update(product);
+
+            dbContext.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            dbContext.Products.Where(p => p.Id == id).ExecuteDelete();
+
+            dbContext.SaveChanges();
         }
     }
 }

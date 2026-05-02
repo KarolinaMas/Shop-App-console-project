@@ -21,5 +21,15 @@ namespace Shop.Services
         {
             return productRepository.Get(id);
         }
+
+        public void Update(Product product)
+        {
+            productRepository.Update(product);
+        }
+
+        public void Delete(int id)
+        {
+            productRepository.Delete(id);
+        }
     }
 }
