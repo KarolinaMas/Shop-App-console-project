@@ -5,6 +5,7 @@ namespace Shop.Services
 {
     public class ProductService : IProductService
     {
+        public const int DefaultItemsPerPage = 10;
         public IProductRepository productRepository;
 
         public ProductService(IProductRepository productRepository)
@@ -30,6 +31,17 @@ namespace Shop.Services
         public void Delete(int id)
         {
             productRepository.Delete(id);
+        }
+
+        public List<Product> GetList(int page, int itemsPerPage)
+        {
+            if (page <= 0)
+                page = 1;
+
+            if (itemsPerPage <= 0)
+                itemsPerPage = DefaultItemsPerPage;
+
+            return productRepository.GetList(page, itemsPerPage);
         }
     }
 }

@@ -29,23 +29,39 @@ namespace Shop.ConsoleApp
                 var userService = serviceProvider.GetRequiredService<IUserService>();
 
                 productService.Add(new Product() { Name = "Book", Price = 12.99M });
+                productService.Add(new Product() { Name = "Chair", Price = 37.99M });
                 productService.Add(new Product() { Name = "Lamp", Price = 37.99M });
+                productService.Add(new Product() { Name = "Cabin", Price = 87.99M });
+                productService.Add(new Product() { Name = "Sofa", Price = 39.99M });
+                productService.Add(new Product() { Name = "Sofa", Price = 39.99M });
+                productService.Add(new Product() { Name = "Bed", Price = 80.99M });
+                productService.Add(new Product() { Name = "Table", Price = 56.99M });
+                productService.Add(new Product() { Name = "Table", Price = 56.99M });
 
-                var product = productService.Get(1);
+                // var product = productService.Get(1);
 
-                Console.WriteLine($"id: {product.Id}; name: {product.Name}");
+                // Console.WriteLine($"id: {product.Id}; name: {product.Name}");
 
-                basketService.Add(1, 1, 3);
-                basketService.Add(2, 2, 2);
+                var products = productService.GetList(2, 3);
 
-                var basket1 = basketService.Get(1);
-                var basket2 = basketService.Get(2);
+                foreach (var product in products)
+                {
+                    Console.WriteLine(
+                        $"id: {product.Id}; name: {product.Name}; price: {product.Price}"
+                    );
+                }
 
-                Console.WriteLine($"user id: {basket1.UserId}; basket id: {basket1.Id};");
-                Console.WriteLine($"user id: {basket2.UserId}; basket id: {basket2.Id};");
+                // basketService.Add(1, 1, 3);
+                // basketService.Add(2, 2, 2);
 
-                var user1 = userService.Register("karole", "karole123", "karole123");
-                var user2 = userService.Register("john", "john123", "john123");
+                // var basket1 = basketService.Get(1);
+                // var basket2 = basketService.Get(2);
+
+                // Console.WriteLine($"user id: {basket1.UserId}; basket id: {basket1.Id};");
+                // Console.WriteLine($"user id: {basket2.UserId}; basket id: {basket2.Id};");
+
+                // var user1 = userService.Register("karole", "karole123", "karole123");
+                // var user2 = userService.Register("john", "john123", "john123");
             }
         }
 
