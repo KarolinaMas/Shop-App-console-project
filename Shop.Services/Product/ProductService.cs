@@ -1,5 +1,6 @@
 using Shop.Entities;
 using Shop.Repositories;
+using Shop.Services.Models;
 
 namespace Shop.Services
 {
@@ -13,8 +14,15 @@ namespace Shop.Services
             this.productRepository = productRepository;
         }
 
-        public int Add(Product product)
+        public int Add(CreateProduct createProduct)
         {
+            var product = new Product
+            {
+                Name = createProduct.Name,
+                Price = createProduct.Price,
+                CountInStock = createProduct.CountInStock,
+            };
+
             return productRepository.Add(product);
         }
 

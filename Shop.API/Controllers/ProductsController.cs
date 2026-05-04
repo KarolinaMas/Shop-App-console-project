@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.Entities;
 using Shop.Services;
+using Shop.Services.Models;
 
 namespace Shop.API.Controllers
 {
@@ -23,9 +23,21 @@ namespace Shop.API.Controllers
         }
 
         [HttpGet("{id}")] // galima ir ne viena parametra prideti, pvz.,  HttpGet("{id}/{priceFrom}")
-        public ActionResult<Product> Get(int id)
+        public IActionResult Get(int id)
         {
-            return productService.Get(id);
+            var product = productService.Get(id);
+
+            if (product == null)
+                return NotFound();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult Create(CreateProduct product)
+        {
+            productService.Add(product);
+            return Created();
         }
     }
 }
