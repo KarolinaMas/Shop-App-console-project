@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Shop.Entities;
 using Shop.Services;
 
@@ -16,9 +17,15 @@ namespace Shop.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<Product>> GetAll()
+        public ActionResult<List<Product>> GetAll(int page, int itemsPerPage)
         {
-            return productService.GetList(1, 4);
+            return productService.GetList(page, itemsPerPage);
+        }
+
+        [HttpGet("{id}")] // galima ir ne viena parametra prideti, pvz.,  HttpGet("{id}/{priceFrom}")
+        public ActionResult<Product> Get(int id)
+        {
+            return productService.Get(id);
         }
     }
 }
