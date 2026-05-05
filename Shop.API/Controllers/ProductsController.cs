@@ -34,10 +34,24 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(CreateProduct product)
+        public async Task<IActionResult> CreateAsync(CreateProduct product)
         {
             await productService.AddAsync(product);
             return Created();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(int id, CreateProduct updateProduct)
+        {
+            await productService.UpdateAsync(id, updateProduct);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            await productService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

@@ -27,9 +27,9 @@ namespace Shop.Repositories
             return await dbContext.Products.SingleOrDefaultAsync(o => o.Id == id);
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(int id, Product product)
         {
-            var existing = await dbContext.Products.FindAsync(product.Id);
+            var existing = await dbContext.Products.FindAsync(id);
 
             if (existing == null)
                 return;

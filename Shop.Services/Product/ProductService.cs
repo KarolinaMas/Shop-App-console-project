@@ -40,7 +40,7 @@ namespace Shop.Services
             return await productRepository.GetAsync(id);
         }
 
-        public async Task UpdateAsync(CreateProduct createProduct)
+        public async Task UpdateAsync(int id, CreateProduct createProduct)
         {
             if (string.IsNullOrWhiteSpace(createProduct.Name))
                 throw new ArgumentException("Name is required");
@@ -58,7 +58,7 @@ namespace Shop.Services
                 CountInStock = createProduct.CountInStock,
             };
 
-            await productRepository.UpdateAsync(product);
+            await productRepository.UpdateAsync(id, product);
         }
 
         public async Task DeleteAsync(int id)
