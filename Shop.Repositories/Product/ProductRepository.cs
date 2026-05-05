@@ -41,13 +41,13 @@ namespace Shop.Repositories
             dbContext.SaveChanges();
         }
 
-        public List<Product> GetList(int page, int itemsPerPage) // paging pvz.
+        public async Task<List<Product>> GetListAsync(int page, int itemsPerPage) // paging pvz.
         {
-            return dbContext
+            return await dbContext
                 .Products.OrderBy(p => p.Id)
                 .Skip((page - 1) * itemsPerPage)
                 .Take(itemsPerPage)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace Shop.Services
             productRepository.Delete(id);
         }
 
-        public List<Product> GetList(int page, int itemsPerPage)
+        public async Task<List<Product>> GetListAsync(int page, int itemsPerPage)
         {
             if (page <= 0)
                 page = 1;
@@ -49,7 +49,7 @@ namespace Shop.Services
             if (itemsPerPage <= 0)
                 itemsPerPage = DefaultItemsPerPage;
 
-            return productRepository.GetList(page, itemsPerPage);
+            return await productRepository.GetListAsync(page, itemsPerPage);
         }
     }
 }

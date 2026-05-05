@@ -16,10 +16,10 @@ namespace Shop.API.Controllers
             this.productService = productService;
         }
 
-        [HttpGet]
-        public ActionResult<List<Product>> GetAll(int page, int itemsPerPage)
+        [HttpGet("{page}/{itemsPerPage}")]
+        public async Task<ActionResult<List<Product>>> GetAllAsync(int page, int itemsPerPage)
         {
-            return productService.GetList(page, itemsPerPage);
+            return await productService.GetListAsync(page, itemsPerPage);
         }
 
         [HttpGet("{id}")] // galima ir ne viena parametra prideti, pvz.,  HttpGet("{id}/{priceFrom}")
