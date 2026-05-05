@@ -7,15 +7,24 @@ namespace Shop.Services
     public class ProductService : IProductService
     {
         public const int DefaultItemsPerPage = 10;
-        public IProductRepository productRepository;
+        private readonly IProductRepository productRepository;
 
         public ProductService(IProductRepository productRepository)
         {
             this.productRepository = productRepository;
         }
 
-        public int Add(CreateProduct createProduct)
+        public async Task<int> AddAsync(CreateProduct createProduct)
         {
+            if (string.IsNullOrWhiteSpace(createProduct.Name))
+                throw new ArgumentException("Name is required");
+
+            if (createProduct.Price <= 0)
+                throw new ArgumentException("Price must be positive");
+
+            if (createProduct.CountInStock < 0)
+                throw new ArgumentException("Stock cannot be negative");
+
             var product = new Product
             {
                 Name = createProduct.Name,
@@ -23,22 +32,38 @@ namespace Shop.Services
                 CountInStock = createProduct.CountInStock,
             };
 
-            return productRepository.Add(product);
+            return await productRepository.AddAsync(product);
         }
 
-        public Product Get(int id)
+        public async Task<Product?> GetAsync(int id)
         {
-            return productRepository.Get(id);
+            return await productRepository.GetAsync(id);
         }
 
-        public void Update(Product product)
+        public async Task UpdateAsync(CreateProduct createProduct)
         {
-            productRepository.Update(product);
+            if (string.IsNullOrWhiteSpace(createProduct.Name))
+                throw new ArgumentException("Name is required");
+
+            if (createProduct.Price <= 0)
+                throw new ArgumentException("Price must be positive");
+
+            if (createProduct.CountInStock < 0)
+                throw new ArgumentException("Stock cannot be negative");
+
+            var product = new Product
+            {
+                Name = createProduct.Name,
+                Price = createProduct.Price,
+                CountInStock = createProduct.CountInStock,
+            };
+
+            await productRepository.UpdateAsync(product);
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            productRepository.Delete(id);
+            await productRepository.DeleteAsync(id);
         }
 
         public async Task<List<Product>> GetListAsync(int page, int itemsPerPage)

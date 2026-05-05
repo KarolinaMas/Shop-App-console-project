@@ -4,11 +4,10 @@ namespace Shop.Repositories
 {
     public interface IProductRepository
     {
-        int Add(Product product);
-
-        Product Get(int id);
-        void Update(Product product);
-        void Delete(int id);
+        Task<int> AddAsync(Product product);
+        Task<Product?> GetAsync(int id);
+        Task UpdateAsync(Product product);
+        Task DeleteAsync(int id);
         Task<List<Product>> GetListAsync(int page, int itemsPerPage);
     }
 }

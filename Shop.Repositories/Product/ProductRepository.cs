@@ -13,32 +13,39 @@ namespace Shop.Repositories
             this.dbContext = dbContext;
         }
 
-        public int Add(Product product)
+        public async Task<int> AddAsync(Product product)
         {
-            var entityEntry = dbContext.Products.Add(product); // pridedam produkta i db ir isaugom i kintamaji entity entry
+            await dbContext.Products.AddAsync(product);
 
-            dbContext.SaveChanges(); // tik iskvietus sita metoda informacija nueina i db
+            await dbContext.SaveChangesAsync(); // tik iskvietus sita metoda informacija nueina i db
 
-            return entityEntry.Entity.Id;
+            return product.Id;
         }
 
-        public Product Get(int id)
+        public async Task<Product> GetAsync(int id)
         {
-            return dbContext.Products.SingleOrDefault(o => o.Id == id);
+            return await dbContext.Products.SingleOrDefaultAsync(o => o.Id == id);
         }
 
-        public void Update(Product product)
+        public async Task UpdateAsync(Product product)
         {
-            dbContext.Products.Update(product);
+            var existing = await dbContext.Products.FindAsync(product.Id);
 
-            dbContext.SaveChanges();
+            if (existing == null)
+                return;
+
+            existing.Name = product.Name;
+            existing.Price = product.Price;
+            existing.CountInStock = product.CountInStock;
+
+            await dbContext.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            dbContext.Products.Where(p => p.Id == id).ExecuteDelete();
+            await dbContext.Products.Where(p => p.Id == id).ExecuteDeleteAsync();
 
-            dbContext.SaveChanges();
+            // await dbContext.SaveChangesAsync(); ExecuteDeleteAsync() jau issaugo
         }
 
         public async Task<List<Product>> GetListAsync(int page, int itemsPerPage) // paging pvz.

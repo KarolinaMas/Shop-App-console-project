@@ -16,27 +16,27 @@ namespace Shop.API.Controllers
             this.productService = productService;
         }
 
-        [HttpGet("{page}/{itemsPerPage}")]
+        [HttpGet("pages/{page}/{itemsPerPage}")]
         public async Task<ActionResult<List<Product>>> GetAllAsync(int page, int itemsPerPage)
         {
             return await productService.GetListAsync(page, itemsPerPage);
         }
 
         [HttpGet("{id}")] // galima ir ne viena parametra prideti, pvz.,  HttpGet("{id}/{priceFrom}")
-        public IActionResult Get(int id)
+        public async Task<IActionResult> GetAsync(int id)
         {
-            var product = productService.Get(id);
+            var product = await productService.GetAsync(id);
 
             if (product == null)
                 return NotFound();
 
-            return Ok();
+            return Ok(product);
         }
 
         [HttpPost]
-        public IActionResult Create(CreateProduct product)
+        public async Task<IActionResult> Create(CreateProduct product)
         {
-            productService.Add(product);
+            await productService.AddAsync(product);
             return Created();
         }
     }
