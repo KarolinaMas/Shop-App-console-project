@@ -30,7 +30,7 @@ namespace Shop.Services
             if (productId <= 0)
                 throw new ArgumentException("Invalid productId");
 
-            var product = productRepository.Get(productId);
+            var product = productRepository.GetAsync(productId);
 
             if (product == null)
                 throw new KeyNotFoundException("Product not found");

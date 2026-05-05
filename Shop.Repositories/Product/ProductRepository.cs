@@ -22,7 +22,7 @@ namespace Shop.Repositories
             return product.Id;
         }
 
-        public async Task<Product> GetAsync(int id)
+        public async Task<Product?> GetAsync(int id)
         {
             return await dbContext.Products.SingleOrDefaultAsync(o => o.Id == id);
         }
